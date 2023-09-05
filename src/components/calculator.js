@@ -5,6 +5,7 @@ import { FaBackspace } from 'react-icons/fa'
 function Calculator() {
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
+  const [currentNumber] = useState("");
   const handleInput = (e) => {
     const value = e.target.value;
 
@@ -43,6 +44,25 @@ function Calculator() {
     }
   }
 
+    const handledot = (e) => {
+        const value = e.target.value;
+        const lastchar = input.slice(-1);
+
+        if (value === '0')
+          if (['+','-','*','/'].includes(lastchar)){
+            return;
+          }
+          const currentNumber = input.split(/[\+\-\*\/]/).pop();
+          if (currentNumber.includes('.')) {
+            return;
+          }
+
+    }
+
+
+
+
+
   const handleBackspace = () => {
     if (input.length > 0) {
       setInput((input) => input.slice(0, -1));
@@ -70,7 +90,7 @@ function Calculator() {
         </div>
         <div className="Calculator-Button">
           <Button type='button' className='Top-Btn' value='AC' onClick={handleArithematicOperator}>
-            AC
+            A
           </Button>
           <Button type="button" className='Top-Btn' value='pm' onClick={handleArithematicOperator} >
             +/-
@@ -129,7 +149,7 @@ function Calculator() {
             -
           </Button>
 
-          <Button type="button" className='Normal-Btn' value='.' onClick={handleArithematicOperator}>
+          <Button type="button" className='Normal-Btn' value='.' onClick={handledot} onClick={handleInput} >
             .
           </Button>
 
